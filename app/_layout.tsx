@@ -1,39 +1,37 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
+import React, { useEffect, useState } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
+import { View, Text } from 'react-native';
+import { Slot } from 'expo-router';
 import 'react-native-reanimated';
+import '../global.css';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync(); // Prevent splash screen from hiding automatically
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
+  const [isLoadingComplete, setLoadingComplete] = useState(false);
 
   useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
+    async function loadResourcesAndDataAsync() {
+      try { 
+        // Load resources or data here
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setLoadingComplete(true);
+        await SplashScreen.hideAsync(); // Hide the splash screen
+      }
     }
-  }, [loaded]);
 
-  if (!loaded) {
-    return null;
+    loadResourcesAndDataAsync();
+  }, []);
+
+  if (!isLoadingComplete) {
+    return (
+      <View className="flex-1 items-center justify-center">
+        <Text className="text-3xl font-bold text-blue-700">Loading...</Text>
+      </View>
+    );
   }
 
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
+  return <Slot />;
 }
