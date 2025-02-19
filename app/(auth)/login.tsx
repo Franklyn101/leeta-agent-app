@@ -49,7 +49,7 @@ const SignInPage: React.FC = () => {
             />
           </View> 
         </View>
-        <Text className='w-[90%] mx-auto pt-[15px] underline text-orange'>I forgot my password</Text>
+        <Text onPress={()=>router.push('/(auth)/forgotten-password')} className='w-[90%] mx-auto pt-[15px] underline text-orange'>I forgot my password</Text>
         <View className='pt-[220px]'>
           <Button 
             classStyle='text-white text-[16px] font-[600] bg-[#D9D9D9]' 

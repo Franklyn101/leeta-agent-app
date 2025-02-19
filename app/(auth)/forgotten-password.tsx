@@ -1,36 +1,48 @@
-import React, { useState } from 'react';
-import { View, SafeAreaView, Text } from 'react-native';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
+import Button from '@/components/Button';
+import Input from '@/components/Input'
+import { router } from 'expo-router';
+import React, { useEffect, useState } from 'react'
+import { View, Text } from 'react-native'
 
-const ForgottenPasswordPage: React.FC = () => {
+const ForgottenPasswordPage = () => {
   const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
+  const [isActive, setIsActive] = useState(false);
 
-  const handleResetPassword = () => {
-    // Example validation
-    if (!email.includes('@')) {
-      setError('Please enter a valid email.');
-      return;
-    }
-    setError('');
-    // Handle reset password logic (e.g., API call)
-    console.log('Reset password for:', email);
-  };
+    useEffect(() => {
+      // Check if both fields are filled
+      if (email) {
+        setIsActive(true);
+      } else {
+        setIsActive(false);
+      }
+    }, [email]);
+  
 
   return (
-    <SafeAreaView className="flex-1 justify-center items-center p-4">
-      <Text className="text-2xl font-bold mb-4">Reset Password</Text>
-      <Input
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        error={error.includes('valid email') ? error : ''}
+    <View>
+      <View className='pb-5 flex flex-col gap-2 items-center justify-end px-[20px] h-[108px] bg-bgprimary text-white'>
+        <Text className='text-[22px] text-white font-[600]'>Login</Text>
+      </View>
+      <View className='p-[20px]'>
+        <Text className='text-[25px] font-[600] pb-[2px]'>Forgot Password</Text>
+        <Text className='text-[#475467]'>Enter your email address to reset your password</Text>
+      </View>
+      <View className='w-full px-[20px] pt-[30px] flex flex-col'>
+        <Input 
+          classStyle='pl-[10px] w-full rounded-[4px] h-[56px]' 
+          value={email}
+          onChangeText={setEmail}
+          placeholderText={'Enter email'}
+        />
+      </View>
+      <Button 
+        classStyle='text-white text-[16px] font-[600] bg-[#D9D9D9]' 
+        title='Continue' 
+        active={isActive} 
+        onClick={()=>router.push('/forgotStep')}
       />
-      <Button title="Reset Password" onClick={handleResetPassword} />
-    </SafeAreaView>
-  );
-};
+    </View>
+  )
+}
 
-export default ForgottenPasswordPage;
-
+export default ForgottenPasswordPage

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, SafeAreaView, Animated } from 'react-native';
 import { useRouter } from 'expo-router';
-import { DataProvider } from './(auth)/authContext';
 
 const Index: React.FC = () => {
   const router = useRouter();
@@ -71,34 +70,34 @@ const Index: React.FC = () => {
 
   return (
     <>
-    <SafeAreaView className="flex-1 items-center justify-center">
-      <View className="flex flex-row gap-3 items-center h-[70vh] justify-center p-4">
-        <View className='flex justify-center h-full items-center'>
-          <Image
-            source={require('../assets/images/Group 842.png')}
-            className="w-[49.65px] h-[59.99px]"
-          />
-        </View>
-        <View className="flex-row">
-          {visibleImages.map((index) => (
-            <Animated.Image
-              key={index}
-              source={images[index]}
-              style={{
-                opacity: animations[index],
-                transform: [{ scale: animations[index] }],
-              }}
-              className="w-[25.4px] h-[23.5px] mx-1"
+      <SafeAreaView className="flex-1 items-center justify-center">
+        <View className="flex flex-row gap-3 items-center h-[70vh] justify-center p-4">
+          <View className='flex justify-center h-full items-center'>
+            <Image
+              source={require('../assets/images/Group 842.png')}
+              className="w-[49.65px] h-[59.99px]"
             />
-          ))}
+          </View>
+          <View className="flex-row">
+            {visibleImages.map((index) => (
+              <Animated.Image
+                key={index}
+                source={images[index]}
+                style={{
+                  opacity: animations[index],
+                  transform: [{ scale: animations[index] }],
+                }}
+                className="w-[25.4px] h-[23.5px] mx-1"
+              />
+            ))}
+          </View>
         </View>
-      </View>
-      <View className='flex justify-center items-center'>
-        <Text className='text-secondarytext text-[14px] font-medium'>
-          Your reliable kitchen assistant.
-        </Text>
-      </View>
-    </SafeAreaView>
+        <View className='flex justify-center items-center'>
+          <Text className='text-secondarytext text-[14px] font-medium'>
+            Your reliable kitchen assistant.
+          </Text>
+        </View>
+      </SafeAreaView>
     </>
   );
 };

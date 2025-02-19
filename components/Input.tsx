@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { TextInput, View, Text, Alert } from 'react-native';
 import { Loader } from './phone';
+import { MyContext } from '../context/globalContext';
 
 interface InputProps {
   error?: string; // Optional error message
+  placeholderText: string;
   classStyle: string;
   onChangeText: (text: string) => void;
   value: string;
@@ -11,13 +13,14 @@ interface InputProps {
   secureTextEntry: boolean;
 }
 
-const Input: React.FC<InputProps> = ({ error, onChangeText, secureTextEntry, phoneNumber, classStyle, value }) => {
-  const [state, setState] = useState(false);
+const Input: React.FC<InputProps> = ({ error, placeholderText, onChangeText, secureTextEntry, phoneNumber, classStyle, value }) => {
+  const [stated, setStated] = useState(false);
 
+  const { setState, setUserNum } = useContext(MyContext)!;
   useEffect(() => {
-    if (phoneNumber && value.length === 14) {
+    if (phoneNumber && value.length === 11) {
+      setStated(true);
       setState(true);
-      alert('aaaaaaa3')
     }
   }, [value, phoneNumber]);
 
@@ -25,8 +28,9 @@ const Input: React.FC<InputProps> = ({ error, onChangeText, secureTextEntry, pho
     <View className="mb-4">
       <TextInput
         onChangeText={onChangeText}
-        className={`${classStyle} ${error ? 'border-red-500' : 'border-gray-100 border-2'}`}
+        className={`${classStyle} ${error ? 'border-red-500' : 'border-gray-100 placeholder:text-xl border-2'}`}
         value={value}
+        placeholder={placeholderText}
         secureTextEntry={secureTextEntry}
         placeholderTextColor="#999"
         keyboardType={phoneNumber ? 'phone-pad' : 'default'}
