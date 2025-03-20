@@ -13,11 +13,7 @@ const SignInPage: React.FC = () => {
 
   useEffect(() => {
     // Check if both fields are filled
-    if (email && password) {
-      setIsActive(true);
-    } else {
-      setIsActive(false);
-    }
+    setIsActive(!!(email && password)); // More concise check
   }, [email, password]);
 
   return (
@@ -49,12 +45,13 @@ const SignInPage: React.FC = () => {
             />
           </View> 
         </View>
-        <Text onPress={()=>router.push('/(auth)/forgotten-password')} className='w-[90%] mx-auto pt-[15px] underline text-orange'>I forgot my password</Text>
+        <Text onPress={() => router.push('/(auth)/forgotten-password')} className='w-[90%] mx-auto pt-[15px] underline text-orange'>I forgot my password</Text>
         <View className='pt-[220px]'>
           <Button 
             classStyle='text-white text-[16px] font-[600] bg-[#D9D9D9]' 
             title='Log In' 
             active={isActive} 
+            onClick={() => router.push('/(tabs)/home')} // Corrected here
           />
           <Text className='mx-auto font-semibold text-[16px] py-[15px]'>
             Don't have an account? <Text className='text-orange' onPress={() => router.push('/(auth)/sign-up')}>Sign Up</Text>
