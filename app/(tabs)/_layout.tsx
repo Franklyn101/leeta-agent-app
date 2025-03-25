@@ -7,12 +7,13 @@ import { IconSymbol } from '@/components/ui/IconSymbol';
 import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
+import Header from '@/components/Header';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
-    <Tabs
+    <><Tabs
       screenOptions={{
         tabBarActiveTintColor: "#FD671E",
         headerShown: false,
@@ -30,22 +31,19 @@ export default function TabLayout() {
         options={{
           title: 'Dashboard',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
+        }} />
       <Tabs.Screen
         name="vendor-list"
         options={{
           title: 'Vendor List',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="briefcase" color={color} />,
-        }}
-      />
+        }} />
       <Tabs.Screen
         name="settings"
         options={{
           title: 'Settings',
           tabBarIcon: ({ color }) => <Icon name="cog" size={28} color={color} />,
-        }}
-      />
-    </Tabs>
+        }} />
+    </Tabs></>
   );
 }
