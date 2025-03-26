@@ -9,7 +9,10 @@ import Barchart from '@/components/barchart';
 import { TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'
 import StatCard from '@/components/statcard';
+import { useRouter } from 'expo-router';
+import AddVendor from '@/components/addvendor';
 export default function HomeScreen() {
+  const router = useRouter();
   return (
     <>
     <Header title="Dashboard"/>
@@ -25,6 +28,7 @@ export default function HomeScreen() {
       </View>
       <TouchableOpacity 
       className="absolute bottom-[-2rem]  right-20 w-14 h-14 rounded-full bg-orange items-center justify-center "
+      onPress={() => router.push('/../components/addvendor')}
     >
       <Ionicons name="add" size={30} color="white" />
     </TouchableOpacity>
